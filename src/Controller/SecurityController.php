@@ -15,7 +15,7 @@ class SecurityController extends Controller
     public function index()
     {
         return $this->render('security/index.html.twig', [
-            'controller_name' => 'SecurityController',
+            'controller_name' => 'Security',
         ]);
     }
 
@@ -32,7 +32,7 @@ class SecurityController extends Controller
 
         return $this->render('security/login.html.twig', array(
             'last_username' => $lastUsername, 
-            'controller_name' => 'SecurityController',
+            'controller_name' => 'Connexion',
             'error' => $error, 
         ));
     }
@@ -49,7 +49,7 @@ class SecurityController extends Controller
 
         return $this->render('security/register.html.twig', array(
             'last_username' => $lastUsername, 
-            'controller_name' => 'SecurityController',
+            'controller_name' => 'Inscription',
             'error' => $error, 
         ));
     }
