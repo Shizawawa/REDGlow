@@ -9,12 +9,51 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>src/Controller/ProjectController.php</code></li>
-        <li>Your template at <code>templates/project/index.html.twig</code></li>
-    </ul>
+    <div class="table-responsive">
+                                            <table class="table table-hover ">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Intitulé</th>
+                                                        <th>Description</th>
+                                                        <th>Participants</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Projet 1</td>
+                                                        <td>Mon premier projet à gérer</td>
+                                                        <td>
+                                                        	<ul>
+                                                        		<li>Rachel</li>
+                                                        		<li>Douae</li>
+                                                        		<li>Elodie</li>
+                                                        	</ul>
+                                                        </td>
+                                                        <td><button class="btn btn-info" href="/dashboard">Plus de détails</button></td>
+                                                        <td><button class="btn btn-warning" href="#">Modifer</button></td>
+                                                        <td><button class="btn btn-danger" href="#">Supprimer</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Projet 2</td>
+                                                        <td>Mon second projet à gérer</td>
+                                                        <td>
+                                                        	<ul>
+                                                        		<li>Rachel</li>
+                                                        		<li>Douae</li>
+                                                        		<li>Elodie</li>
+                                                        	</ul>
+                                                        </td>
+                                                        <td><button class="btn btn-info" href="#">Plus de détails</button></td>
+                                                        <td><button class="btn btn-warning" href="#">Modifer</button></td>
+                                                        <td><button class="btn btn-danger" href="#">Supprimer</button></td>
+                                                    </tr>
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 </div>
 {% endblock %}
