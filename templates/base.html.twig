@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
-        
+        <link rel="icon" href="{{ asset('images/favicon.jpg') }}" />
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
         {% endblock %}
@@ -18,9 +18,6 @@
                 {{ include('/template/navbar.html.twig') }}
             {% endblock %}
         {# {% endif %} #}
-        
-    
-       
         
         {% block body %}{% endblock %}
         
