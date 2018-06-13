@@ -1,17 +1,9 @@
 {% extends 'base.html.twig' %}
-<<<<<<< HEAD
 {% block title %}{{ controller_name }} {% endblock %}
 
 {% block body %}
     {{ form_start(form) }}
     {{ form_row(form._token) }}
-=======
-
-{% block title %} {{ controller_name }} {% endblock %}
-
-{% block body %}
-
->>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
     <div id="main-wrapper">
         <div class="unix-login">
             <div class="container-fluid">
@@ -22,7 +14,6 @@
                                 <h4>Inscription</h4>
                                <form>
                                     <div class="form-group">
-<<<<<<< HEAD
                                         {{ form_row(form.username) }}
                                         
                                     </div>
@@ -43,20 +34,6 @@
                                     </div>
 
                                      <div class="checkbox">
-=======
-                                        <label>Nom d'utilisateur</label>
-                                        <input type="email" class="form-control" placeholder="User Name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Adresse email</label>
-                                        <input type="email" class="form-control" placeholder="Email">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Mot de passe </label>
-                                        <input type="password" class="form-control" placeholder="Password">
-                                    </div>
-                                    <div class="checkbox">
->>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
                                         <label>
                                         <input type="checkbox"> Agree the terms and policy
                                     </label>
@@ -74,10 +51,7 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
     {{ form_end(form) }}
-=======
->>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
     <!-- End Wrapper -->
 
 {% endblock %}

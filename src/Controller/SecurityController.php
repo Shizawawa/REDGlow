@@ -15,26 +15,14 @@ class SecurityController extends Controller
     public function index()
     {
         return $this->render('security/index.html.twig', [
-
             'controller_name' => 'SecurityController',
         ]);
     }
-
 
     /**
     * @Route("/login", name="login")
     */
     public function loginAction(Request $request, AuthenticationUtils $authenticationUtils)
-
-            'controller_name' => 'Security',
-        ]);
-    }
-
-    /**
-    * @Route("/login", name="login")
-    */
-    public function login(Request $request, AuthenticationUtils $authenticationUtils)
-
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError(); 
@@ -48,5 +36,4 @@ class SecurityController extends Controller
             'error' => $error, 
         ));
     }
-
 }

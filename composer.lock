@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
     "content-hash": "770ee5ee469047f352e3508c79c63234",
-=======
-    "content-hash": "2fe3c557777cbe0985b50b9b361da3ed",
->>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1042,7 +1038,6 @@
             "time": "2016-10-17T18:31:11+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "friendsofsymfony/user-bundle",
             "version": "v2.1.2",
             "source": {
@@ -1119,8 +1114,6 @@
             "time": "2018-03-08T08:59:27+00:00"
         },
         {
-=======
->>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
             "name": "jdorn/sql-formatter",
             "version": "v1.2.17",
             "source": {
@@ -1367,7 +1360,6 @@
             "time": "2017-05-04T11:12:50+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "paragonie/random_compat",
             "version": "v2.0.15",
             "source": {
@@ -1417,8 +1409,6 @@
             "time": "2018-06-08T15:26:40+00:00"
         },
         {
-=======
->>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
             "name": "phpdocumentor/reflection-common",
             "version": "1.0.1",
             "source": {
@@ -3421,7 +3411,6 @@
             "time": "2017-12-12T01:47:50+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "symfony/polyfill-ctype",
             "version": "v1.8.0",
             "source": {
@@ -3477,8 +3466,6 @@
             "time": "2018-04-30T19:57:29+00:00"
         },
         {
-=======
->>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
             "name": "symfony/polyfill-intl-icu",
             "version": "v1.7.0",
             "source": {
@@ -4194,7 +4181,6 @@
             "time": "2018-04-03T16:29:41+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "symfony/templating",
             "version": "v4.1.0",
             "source": {
@@ -4251,8 +4237,6 @@
             "time": "2018-05-01T23:02:13+00:00"
         },
         {
-=======
->>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
             "name": "symfony/translation",
             "version": "v4.0.8",
             "source": {

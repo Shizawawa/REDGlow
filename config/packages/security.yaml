@@ -1,33 +1,18 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-<<<<<<< HEAD
     encoders:
         App\Entity\User: bcrypt
     providers:
         user_db:
             entity: { class: App\Entity\User, property: username }                
-=======
-    providers:
->>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
         in_memory: { memory: ~ }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-<<<<<<< HEAD
             provider: user_db
             anonymous: true
-=======
-            anonymous: ~
-
-            # activate different ways to authenticate
-
-            # http_basic: true
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
->>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
             form_login: 
                 login_path: login
                 check_path: login
@@ -37,7 +22,4 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-<<<<<<< HEAD
 # 
-=======
->>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
