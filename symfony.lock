@@ -83,9 +83,12 @@
     "fig/link-util": {
         "version": "1.0.0"
     },
+<<<<<<< HEAD
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
     },
+=======
+>>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -98,9 +101,12 @@
     "ocramius/proxy-manager": {
         "version": "2.1.1"
     },
+<<<<<<< HEAD
     "paragonie/random_compat": {
         "version": "v2.0.15"
     },
+=======
+>>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },
@@ -272,9 +278,12 @@
             "ref": "179470cb6492db92dffee208cfdb436f175c93b4"
         }
     },
+<<<<<<< HEAD
     "symfony/polyfill-ctype": {
         "version": "v1.8.0"
     },
+=======
+>>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
     "symfony/polyfill-intl-icu": {
         "version": "v1.7.0"
     },
@@ -335,9 +344,12 @@
             "ref": "3db029c03e452b4a23f7fc45cec7c922c2247eb8"
         }
     },
+<<<<<<< HEAD
     "symfony/templating": {
         "version": "v4.1.0"
     },
+=======
+>>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
     "symfony/translation": {
         "version": "3.3",
         "recipe": {

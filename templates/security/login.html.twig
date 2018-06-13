@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
+<<<<<<< HEAD
 {% block title %}{{ controller_name }} {% endblock %}
+=======
+{% block title %} {{ controller_name }} {% endblock %}
+>>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
 
 {% block body %}
 
@@ -13,6 +17,7 @@
                         <div class="login-content card">
                             <div class="login-form">
                                 <h4>Login</h4>
+<<<<<<< HEAD
                                 <form action="{{ path('login') }}" method="post">
                                     <div class="form-group">
                                         <label>Nom d'utilisateur</label>
@@ -21,6 +26,16 @@
                                     <div class="form-group">
                                         <label>Mot de passe</label>
                                         <input type="password" class="form-control" id="password" name="_password" placeholder="Mot de passe">
+=======
+                                <form>
+                                    <div class="form-group">
+                                        <label>Adresse mail</label>
+                                        <input type="email" class="form-control" placeholder="Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mot de passe</label>
+                                        <input type="password" class="form-control" placeholder="Password">
+>>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
                                     </div>
                                     <div class="checkbox">
                                         <label>
@@ -31,7 +46,11 @@
         									</label>
 
                                     </div>
+<<<<<<< HEAD
                                     <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Se connecter</button>
+=======
+                                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+>>>>>>> 4ec2667cecbf79c85539db7010e00ddcca4d2b2a
                                     <div class="register-link m-t-15 text-center">
                                         <p>Vous n'avez pas de compte ? <a href="/register"> Inscrivez-vous ici !</a></p>
                                     </div>
