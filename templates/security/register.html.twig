@@ -1,59 +1,59 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ controller_name }} {% endblock %}
 
-{% block body %}
-    {{ form_start(form) }}
-    {{ form_row(form._token) }}
-    <div id="main-wrapper">
-        <div class="unix-login">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-lg-4">
-                        <div class="login-content card">
-                            <div class="login-form">
-                                <h4>Inscription</h4>
-                               <form>
-                                    <div class="form-group">
-                                        {{ form_row(form.username) }}
-                                        
-                                    </div>
+    {% block body %}
+        {{ form_start(form) }}
+        {{ form_row(form._token) }}
+        <div id="main-wrapper">
+            <div class="unix-login">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4">
+                            <div class="login-content card">
+                                <div class="login-form">
+                                    <h4>Inscription</h4>
+                                    <form>
+                                        <div class="form-group">
+                                            {{ form_row(form.username) }}
 
-                                    <div class="form-group">
-                                        {{ form_row(form.email) }}
-                                        
-                                    </div>
+                                        </div>
 
-                                    <div class="form-group">
-                                        {{ form_row(form.plainPassword.first) }}
-                                       
-                                    </div>
+                                        <div class="form-group">
+                                            {{ form_row(form.email) }}
 
-                                    <div class="form-group">
-                                        {{ form_row(form.plainPassword.second) }}
-                                       
-                                    </div>
+                                        </div>
 
-                                     <div class="checkbox">
-                                        <label>
-                                        <input type="checkbox"> Agree the terms and policy
-                                    </label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">S'inscrire</button>
-                                    <div class="register-link m-t-15 text-center">
-                                        <p>Already have account ? <a href="/login"> Sign in</a></p>
-                                    </div>
-                                </form>
+                                        <div class="form-group">
+                                            {{ form_row(form.plainPassword.first) }}
 
+                                        </div>
+
+                                        <div class="form-group">
+                                            {{ form_row(form.plainPassword.second) }}
+
+                                        </div>
+
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> Agree the terms and policy
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">S'inscrire</button>
+                                        <div class="register-link m-t-15 text-center">
+                                            <p>Already have account ? <a href="/login"> Sign in</a></p>
+                                        </div>
+                                    </form>
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {{ form_end(form) }}
-    <!-- End Wrapper -->
+        {{ form_end(form) }}
+        <!-- End Wrapper -->
 
-{% endblock %}
+    {% endblock %}
 
 
