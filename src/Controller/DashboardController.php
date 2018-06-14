@@ -6,6 +6,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use App\Entity\User; 
 
 class DashboardController extends Controller
 {
@@ -24,6 +25,11 @@ class DashboardController extends Controller
 		if (false === $securityContext->isGranted('ROLE_USER')) {
 	        throw new AccessDeniedException('Unable to access this page!');
 	    }
+
+	    $em = $this->getDoctrine()->getManager(); 
+
+	    $users = $em->getRepository(User::class)->findAll(); 
+	    dump($users); 
 	    
 	    $token = $this->get('security.token_storage')->getToken();
 		$user = $token->getUser();
