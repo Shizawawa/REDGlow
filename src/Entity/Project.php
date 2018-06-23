@@ -27,7 +27,7 @@ class Project
     private $description;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="integer")
      */
     private $users;
 

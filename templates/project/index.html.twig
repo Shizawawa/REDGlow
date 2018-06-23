@@ -41,7 +41,7 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ controller_name }}!{% endblock %}
+{% block title %}{{ controller_name }}{% endblock %}
 
 	{% block body %}
 		<style>
@@ -64,9 +64,10 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Projet 1</td>
-								<td>Mon premier projet à gérer</td>
+							{% for project in projects %}
+								<tr>
+								<td>{{ project.name }}</td>
+								<td>{{ project.description }}</td>
 								<td>
 									<ul>
 										<li>Rachel</li>
@@ -74,24 +75,13 @@
 										<li>Elodie</li>
 									</ul>
 								</td>
-								<td><button class="btn btn-info" href="/show">Plus de détails</button></td>
-								<td><button class="btn btn-warning" href="/edit">Modifer</button></td>
+								<td><button class="btn btn-info" href="{# {{path('project_show')}} #}">Plus de détails</button></td>
+								<td><button class="btn btn-warning" href="edit">Modifer</button></td>
 								<td><button class="btn btn-danger" href="/delete">Supprimer</button></td>
 							</tr>
-							<tr>
-								<td>Projet 2</td>
-								<td>Mon second projet à gérer</td>
-								<td>
-									<ul>
-										<li>Rachel</li>
-										<li>Douae</li>
-										<li>Elodie</li>
-									</ul>
-								</td>
-								<td><button class="btn btn-info" href="/show">Plus de détails</button></td>
-								<td><button class="btn btn-warning" href="/edit">Modifer</button></td>
-								<td><button class="btn btn-danger" href="/delete">Supprimer</button></td>
-							</tr>
+							
+							{% endfor %}
+							
 
 						</tbody>
 					</table>

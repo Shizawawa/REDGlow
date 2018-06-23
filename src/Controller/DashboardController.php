@@ -26,10 +26,10 @@ class DashboardController extends Controller
 	        throw new AccessDeniedException('Unable to access this page!');
 	    }
 
-	    $em = $this->getDoctrine()->getManager(); 
+	    /*$em = $this->getDoctrine()->getManager(); 
 
 	    $users = $em->getRepository(User::class)->findAll(); 
-	    dump($users); 
+	    dump($users); */
 	    
 	    $token = $this->get('security.token_storage')->getToken();
 		$user = $token->getUser();

@@ -16,9 +16,17 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return $this->render('project/index.html.twig', [
-            'controller_name' => 'ProjectController',
+    	$em = $this->getDoctrine()->getManager(); 
+
+	    $projects = $em->getRepository(Project::class)->findAll(); 
+	    // dump($projects); 
+
+
+    	return $this->render('project/index.html.twig', [
+            'controller_name' => 'Liste des projets',
+            'projects' => $projects,
         ]);
+
     }
 
 
@@ -40,6 +48,8 @@ class ProjectController extends Controller
     		$entityManager = $this->getDoctrine()->getManager();
     		$entityManager->persist($project);
     		$entityManager->flush();
+
+
     	}
 
         return $this->render('project/new.html.twig', [
@@ -50,7 +60,7 @@ class ProjectController extends Controller
 
     private function getForm(project $project){
         $form = $this->createFormBuilder($project, array(
-            'action' =>$this->generateUrl('project_new'),
+            'action' =>$this->generateUrl('project_list'),
             'method' => 'POST',
 
         ));
@@ -61,6 +71,46 @@ class ProjectController extends Controller
         return $form->getForm();
     }
 
+     /**
+     * @Route("/project/list", name="project_list")
+     */
+    public function listAction(Request $request)
+    {
+    	$project = new Project(); 
+    	$form = $this->getForm($project); 
 
+    	$form->handleRequest($request); 
+    	
+    	if ($form->isSubmitted()) {
+    		$project = $form->getData(); 
+    		$project->setName($project->getName());
+    		$project->setDescription($project->getDescription());
+
+    		$entityManager = $this->getDoctrine()->getManager();
+    		$entityManager->persist($project);
+    		$entityManager->flush();
+
+
+    	}
+
+    	$em = $this->getDoctrine()->getManager(); 
+
+	    $projects = $em->getRepository(Project::class)->findAll(); 
+	    // dump($projects); 
+
+
+    	return $this->render('project/index.html.twig', [
+            'controller_name' => 'Liste des projets',
+            'projects' => $projects,
+        ]);
+    } 
+
+    /**
+     * @Route("/project/show", name="project_show")
+     */
+    public function show()
+    {
+    	
+    }
 
 }
