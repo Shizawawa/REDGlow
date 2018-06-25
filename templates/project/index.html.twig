@@ -1,0 +1,93 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}Project index{% endblock %}
+
+{% block body %}
+<h1>Project index</h1>
+
+<table class="table">
+<thead>
+<tr>
+<th>Id</th>
+<th>Name</th>
+<th>Description</th>
+<th>Users</th>
+<th>actions</th>
+</tr>
+</thead>
+<tbody>
+{% for project in projects %}
+<tr>
+<td>{{ project.id }}</td>
+<td>{{ project.name }}</td>
+<td>{{ project.description }}</td>
+<td>{{ project.users ? project.users|join(', ') : '' }}</td>
+<td>
+<a href="{{ path('project_show', {'id': project.id}) }}">show</a>
+<a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
+</td>
+</tr>
+{% else %}
+<tr>
+<td colspan="5">no records found</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<a href="{{ path('project_new') }}">Create new</a>
+{% endblock %} #}
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ controller_name }}{% endblock %}
+
+	{% block body %}
+		<style>
+		.example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+		.example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+		</style>
+
+		<div class="page-wrapper">
+			<div class="table-responsive">
+				<div class="container-fluid">
+					<table class="table table-hover ">
+						<thead>
+							<tr>
+								<th>Intitulé</th>
+								<th>Description</th>
+								<th>Participants</th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for project in projects %}
+								<tr>
+								<td>{{ project.name }}</td>
+								<td>{{ project.description }}</td>
+								<td>
+									<ul>
+										<li>Rachel</li>
+										<li>Douae</li>
+										<li>Elodie</li>
+									</ul>
+								</td>
+								<td><button class="btn btn-info" href="{# {{path('project_show')}} #}">Plus de détails</button></td>
+								<td><button class="btn btn-warning" href="edit">Modifer</button></td>
+								<td><button class="btn btn-danger" href="/delete">Supprimer</button></td>
+							</tr>
+							
+							{% endfor %}
+							
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+	{% endblock %}
