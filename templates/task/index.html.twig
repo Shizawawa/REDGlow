@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ controller_name }}!{% endblock %}
+
+{% block body %}
+
+<div class="page-wrapper">
+	<div class="table-responsive">
+	    <div class="container-fluid">
+	        <table class="table table-hover ">
+	            <thead>
+	                <tr>
+	                    <th>Projet</th>
+	                    <th>Intitulé</th>
+	                    <th>Description</th>
+	                    <th>Participants</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	            	{% for task in task_list %}
+	            	<tr>
+                        <td>[Projet 1]</td>
+                        <td>{{task.name}}</td>
+                        <td>{{task.description}}</td>
+                        <td>
+                        	<ul>
+                        		<li>Rachel</li>
+                        		<li>Douae</li>
+                        		<li>Elodie</li>
+                        	</ul>
+                        </td>
+                        <td><a href="{{ path('task_show', {'id': task.id}) }}"><button class="btn btn-info">Plus de détails</button></a></td>
+                        <td><button class="btn btn-warning" href="/edit">Modifier</button></td>
+                        <td><button class="btn btn-danger" href="/delete">Supprimer</button></td>
+                    </tr>
+                    {% endfor %}
+	            </tbody>
+	        </table>
+	    </div>
+	</div>
+</div>
+
+{% endblock %}
