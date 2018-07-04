@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,9 +29,15 @@ class Project
     private $description;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="project_id")
      */
-    private $users;
+    private $user_id;
+
+
+    public function __construct()
+    {
+        $this->user_id = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -60,15 +68,31 @@ class Project
         return $this;
     }
 
-    public function getUsers(): ?array
+    /**
+     * @return Collection|User[]
+     */
+    public function getUserId(): Collection
     {
-        return $this->users;
+        return $this->user_id;
     }
 
-    public function setUsers(array $users): self
+    public function addUserId(User $userId): self
     {
-        $this->users = $users;
+        if (!$this->user_id->contains($userId)) {
+            $this->user_id[] = $userId;
+        }
 
         return $this;
     }
+
+    public function removeUserId(User $userId): self
+    {
+        if ($this->user_id->contains($userId)) {
+            $this->user_id->removeElement($userId);
+        }
+
+        return $this;
+    }
+
+   
 }

@@ -3,6 +3,8 @@
 // src/Entity/User.php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -54,8 +56,20 @@ class User implements UserInterface
      */
     private $roles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="user_id")
+     */
+    private $yes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="user_id")
+     */
+    private $project_id;
+
     public function __construct() {
         $this->roles = array('ROLE_USER');
+        $this->yes = new ArrayCollection();
+        $this->project_id = new ArrayCollection();
     }
 
     // other properties and methods
@@ -114,5 +128,61 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getYes(): Collection
+    {
+        return $this->yes;
+    }
+
+    public function addYe(Project $ye): self
+    {
+        if (!$this->yes->contains($ye)) {
+            $this->yes[] = $ye;
+            $ye->addUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeYe(Project $ye): self
+    {
+        if ($this->yes->contains($ye)) {
+            $this->yes->removeElement($ye);
+            $ye->removeUserId($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjectId(): Collection
+    {
+        return $this->project_id;
+    }
+
+    public function addProjectId(Project $projectId): self
+    {
+        if (!$this->project_id->contains($projectId)) {
+            $this->project_id[] = $projectId;
+            $projectId->addUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectId(Project $projectId): self
+    {
+        if ($this->project_id->contains($projectId)) {
+            $this->project_id->removeElement($projectId);
+            $projectId->removeUserId($this);
+        }
+
+        return $this;
     }
 }

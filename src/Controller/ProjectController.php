@@ -26,9 +26,7 @@ class ProjectController extends Controller
             'controller_name' => 'Liste des projets',
             'projects' => $projects,
         ]);
-
     }
-
 
     /**
      * @Route("/project/new", name="project_new")
@@ -48,8 +46,6 @@ class ProjectController extends Controller
     		$entityManager = $this->getDoctrine()->getManager();
     		$entityManager->persist($project);
     		$entityManager->flush();
-
-
     	}
 
         return $this->render('project/new.html.twig', [
@@ -89,8 +85,6 @@ class ProjectController extends Controller
     		$entityManager = $this->getDoctrine()->getManager();
     		$entityManager->persist($project);
     		$entityManager->flush();
-
-
     	}
 
     	$em = $this->getDoctrine()->getManager(); 
