@@ -55,10 +55,24 @@ class UserController extends Controller
     /**
      * @Route("/{id}", name="user_show", methods="GET")
      */
-    public function show(User $user): Response
+    /*public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', ['user' => $user]);
+    }*/
+
+    /**
+     * @Route("/show/{id}", name="user_show")
+     */
+    public function show($id)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        return $this->render('user/show.html.twig', 
+            array('user' => $user, ));
+
     }
+
+
 
     /**
      * @Route("/edit/{id}", name="user_edit", methods="GET|POST")
@@ -82,7 +96,7 @@ class UserController extends Controller
 
     
     /**
-     * @Route("/user/delete/{id}")
+     * @Route("/delete/{id}")
      * @Method({"DELETE"})
      */
     public function delete(Request $request, $id) 
@@ -93,7 +107,6 @@ class UserController extends Controller
       $entityManager->flush();
       $response = new Response();
       $response->send();
-      return $this->redirectToRoute('user_index');
 
     }
 }

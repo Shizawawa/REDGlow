@@ -19,7 +19,15 @@
             {% endblock %}
         {# {% endif %} #}
         
-        {% block body %}{% endblock %}
+        <div class="page-wrapper">
+            <div class="table-responsive">
+                <div class="container-fluid">
+                    {% block body %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
         
     </body>
 

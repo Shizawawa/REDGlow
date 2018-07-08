@@ -5,7 +5,8 @@
 {% block body %}
     <h1>Module index</h1>
 
-    <table class="table">
+   
+    <table id="projects" class="table table-hover ">
         <thead>
             <tr>
                 <th>Id</th>
@@ -34,6 +35,7 @@
         {% endfor %}
         </tbody>
     </table>
+            
 
     <a href="{{ path('module_new') }}">Create new</a>
 {% endblock %}

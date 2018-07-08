@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Module</h1>
-
+    
     <table class="table">
         <tbody>
             <tr>
@@ -31,4 +31,5 @@
     <a href="{{ path('module_edit', {'id': module.id}) }}">edit</a>
 
     {{ include('module/_delete_form.html.twig') }}
+          
 {% endblock %}
