@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\User1Type;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -60,7 +61,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods="GET|POST")
+     * @Route("/edit/{id}", name="user_edit", methods="GET|POST")
      */
     public function edit(Request $request, User $user): Response
     {
@@ -79,17 +80,20 @@ class UserController extends Controller
         ]);
     }
 
+    
     /**
-     * @Route("/{id}", name="user_delete", methods="DELETE")
+     * @Route("/user/delete/{id}")
+     * @Method({"DELETE"})
      */
-    public function delete(Request $request, User $user): Response
+    public function delete(Request $request, $id) 
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
-            $em->flush();
-        }
+      $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->remove($user);
+      $entityManager->flush();
+      $response = new Response();
+      $response->send();
+      return $this->redirectToRoute('user_index');
 
-        return $this->redirectToRoute('user_index');
     }
 }

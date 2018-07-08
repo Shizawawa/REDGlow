@@ -153,7 +153,8 @@ class ProjectController extends Controller
      * @Route("/project/delete/{id}")
      * @Method({"DELETE"})
      */
-    public function delete(Request $request, $id) {
+    public function delete(Request $request, $id) 
+    {
       $project = $this->getDoctrine()->getRepository(Project::class)->find($id);
       $entityManager = $this->getDoctrine()->getManager();
       $entityManager->remove($project);
@@ -161,7 +162,4 @@ class ProjectController extends Controller
       $response = new Response();
       $response->send();
     }
-   
-    
-
 }
