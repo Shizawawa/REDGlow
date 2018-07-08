@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Task{% endblock %}
+
+{% block body %}
+    <div id="main-wrapper">
+    <!-- Page wrapper  -->
+    <div class="page-wrapper">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Édition de la tâche : {{ task.name }} </h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+    <!-- Start Page Content -->
+
+    {{ include('task/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+    <a href="{{ path('task_index') }}">Retour à la liste des tâches</a>
+
+    {{ include('task/_delete_form.html.twig') }}
+
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

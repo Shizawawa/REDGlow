@@ -1,43 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ controller_name }}!{% endblock %}
+{% block title %}Task index{% endblock %}
 
 {% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
 
-<div class="page-wrapper">
-	<div class="table-responsive">
-	    <div class="container-fluid">
-	        <table class="table table-hover ">
-	            <thead>
-	                <tr>
-	                    <th>Projet</th>
-	                    <th>Intitulé</th>
-	                    <th>Description</th>
-	                    <th>Participants</th>
-	                </tr>
-	            </thead>
-	            <tbody>
-	            	{% for task in task_list %}
-	            	<tr>
-                        <td>[Projet 1]</td>
-                        <td>{{task.name}}</td>
-                        <td>{{task.description}}</td>
-                        <td>
-                        	<ul>
-                        		<li>Rachel</li>
-                        		<li>Douae</li>
-                        		<li>Elodie</li>
-                        	</ul>
-                        </td>
-                        <td><a href="{{ path('task_show', {'id': task.id}) }}"><button class="btn btn-info">Plus de détails</button></a></td>
-                        <td><button class="btn btn-warning" href="/edit">Modifier</button></td>
-                        <td><button class="btn btn-danger" href="/delete">Supprimer</button></td>
-                    </tr>
-                    {% endfor %}
-	            </tbody>
-	        </table>
-	    </div>
-	</div>
-</div>
-
+    <div class="page-wrapper">
+    <div class="table-responsive">
+    <div class="container-fluid">
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Start_at</th>
+                <th>Planned_end_at</th>
+                <th>End_at</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.startAt ? task.startAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ task.plannedEndAt ? task.plannedEndAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ task.endAt ? task.endAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td><a class="btn btn-info" href="{{ path('task_show', {'id': task.id}) }}">Détails</a></td>
+                <td><a class="btn btn-warning" href="{{ path('task_edit', {'id': task.id}) }}">Modifier</a></td>
+                <td>{{ include('task/_delete_form.html.twig') }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+        <a class="btn btn-success" href="{{ path('task_new') }}">Ajouter une nouvelle tâche</a>
+    </div>
+    </div>
 {% endblock %}

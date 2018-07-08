@@ -3,6 +3,8 @@
 // src/Entity/User.php
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -54,8 +56,14 @@ class User implements UserInterface
      */
     private $roles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Task", mappedBy="contributor")
+     */
+    private $tasks;
+
     public function __construct() {
         $this->roles = array('ROLE_USER');
+        $this->tasks = new ArrayCollection();
     }
 
     // other properties and methods
@@ -114,5 +122,33 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function addTask(Task $task): self
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks[] = $task;
+            $task->addContributor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): self
+    {
+        if ($this->tasks->contains($task)) {
+            $this->tasks->removeElement($task);
+            $task->removeContributor($this);
+        }
+
+        return $this;
     }
 }
