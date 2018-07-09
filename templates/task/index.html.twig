@@ -11,40 +11,43 @@
     <div class="page-wrapper">
     <div class="table-responsive">
     <div class="container-fluid">
-    <table class="table table-hover ">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Start_at</th>
-                <th>Planned_end_at</th>
-                <th>End_at</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task.id }}</td>
-                <td>{{ task.name }}</td>
-                <td>{{ task.startAt ? task.startAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ task.plannedEndAt ? task.plannedEndAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ task.endAt ? task.endAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td><a class="btn btn-info" href="{{ path('task_show', {'id': task.id}) }}">Détails</a></td>
-                <td><a class="btn btn-warning" href="{{ path('task_edit', {'id': task.id}) }}">Modifier</a></td>
-                <td>{{ include('task/_delete_form.html.twig') }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Début de la tâche</th>
+                    <th>Fin prévue</th>
+                    <th>Fin réelle</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.startAt ? task.startAt|date('Y-m-d') : '' }}</td>
+                    <td>{{ task.plannedEndAt ? task.plannedEndAt|date('Y-m-d') : '' }}</td>
+                    <td>{{ task.endAt ? task.endAt|date('Y-m-d') : '' }}</td>
+                    <td><a class="btn btn-info" href="{{ path('task_show', {'id': task.id}) }}">Détails</a></td>
+                    <td><a class="btn btn-warning" href="{{ path('task_edit', {'id': task.id}) }}">Modifier</a></td>
+                    <td>{{ include('task/_delete_form.html.twig') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <div class="col-12">
+            <a class="btn btn-success" href="{{ path('task_new') }}">Ajouter une nouvelle tâche</a>
+        </div>
     </div>
-        <a class="btn btn-success" href="{{ path('task_new') }}">Ajouter une nouvelle tâche</a>
     </div>
     </div>
 {% endblock %}

@@ -6,7 +6,6 @@ use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,12 +20,17 @@ class TaskType extends AbstractType
             ->add('name', TextType::class, array('label'=>'Nom de la tâche'))
             ->add('description', TextareaType::class, array('attr'=>array('row'=>10)))
             ->add('start_at', DateType::class, array('label'=>'Début de la tâche'))
-            ->add('planned_end_at', DateType::class, array('label'=>'Fin théorique de la tâche'))
+            ->add('planned_end_at', DateType::class, array('label'=>'Fin prévue'))
+            ->add('end_at', DateType::class, array('label'=>'Fin réelle'))
             ->add('contributor', EntityType::class, array(
+                'placeholder' => 'Choose an option',
+                'multiple' => true,
+                'expanded' => true,
                 'class' => User::class,
-                'placeholder' => 'Choisir un ou plusieurs contributeur',
-                'choice_label' => 'username',
-                'multiple' => true))
+                'choice_label' => function ($user) {
+                    return $user->getUsername();
+                }
+            ));
         ;
     }
 
