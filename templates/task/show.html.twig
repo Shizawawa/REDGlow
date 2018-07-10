@@ -1,11 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ controller_name }}!{% endblock %}
+{% block title %}Task{% endblock %}
 
 {% block body %}
-	<div class="page-wrapper">
+    <div id="main-wrapper">
+        <!-- Page wrapper  -->
+        <div class="page-wrapper">
+            <!-- Bread crumb -->
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-primary">Tâche : {{ task.name }} </h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- End Bread crumb -->
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+            <!-- Start Page Content -->
 
-	{{task.name}}
+                <div class="col-12">
+                    Description :
+                    <p>{{ task.description }}</p>
+                </div>
+
+                <div class="col-6">
+                    Début de la tâche :
+                    {{ task.startAt ? task.startAt|date('Y-m-d') : '' }}
+                </div>
+                <div class="col-6">
+                    Fin prévue de la tâche :
+                    {{ task.plannedEndAt ? task.plannedEndAt|date('Y-m-d') : '' }}
+                </div>
+                <br>
+                <div class="col-12">
+                    Fin réelle :
+                    {{ task.endAt ? task.endAt|date('Y-m-d') : '∅' }}
+                </div>
+                <br>
+                <div class="col-12">
+                    Contributeur(s) :
+                    <p>
+                    {% for contributeur in task.contributor %}
+                        {{ contributeur.username }} |
+                    {% endfor %}
+                    </p>
+                </div>
+                <p><a class="btn btn-warning" href="{{ path('task_edit', {'id': task.id}) }}">Modifier</a>
+                {{ include('task/_delete_form.html.twig') }}</p>
+
+                <a href="{{ path('task_index') }}"><- Retour à la liste des tâches</a>
+            </div>
+        </div>
+    </div>
 </div>
-
 {% endblock %}
