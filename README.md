@@ -1,1 +1,1 @@
-# REDGlow
+yarn run encore dev --watch
