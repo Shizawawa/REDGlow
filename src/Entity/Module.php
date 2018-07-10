@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,21 @@ class Module
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $add_at;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $actif;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", mappedBy="module")
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -68,6 +85,46 @@ class Module
     public function setAddAt(?\DateTimeInterface $add_at): self
     {
         $this->add_at = $add_at;
+
+        return $this;
+    }
+
+    public function getActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): self
+    {
+        $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->Users;
+    }
+
+    public function addUser(User $User): self
+    {
+        if (!$this->Users->contains($ye)) {
+            $this->Users[] = $ye;
+            $ye->addModule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $User): self
+    {
+        if ($this->Users->contains($User)) {
+            $this->Users->removeElement($ye);
+            $ye->removeModule($this);
+        }
 
         return $this;
     }

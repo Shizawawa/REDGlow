@@ -66,10 +66,16 @@ class User implements UserInterface
      */
     private $project_id;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Module", inversedBy="yes")
+     */
+    private $module;
+
     public function __construct() {
         $this->roles = array('ROLE_USER');
         $this->yes = new ArrayCollection();
         $this->project_id = new ArrayCollection();
+        $this->module = new ArrayCollection();
     }
 
     // other properties and methods
@@ -249,4 +255,31 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Module[]
+     */
+    public function getModule(): Collection
+    {
+        return $this->module;
+    }
+
+    public function addModule(Module $module): self
+    {
+        if (!$this->module->contains($module)) {
+            $this->module[] = $module;
+        }
+
+        return $this;
+    }
+
+    public function removeModule(Module $module): self
+    {
+        if ($this->module->contains($module)) {
+            $this->module->removeElement($module);
+        }
+
+        return $this;
+    }
+
 }
