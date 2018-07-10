@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\Project;
 use App\Entity\User;
+
+use App\Form\ProjectType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -38,84 +40,23 @@ class ProjectController extends Controller
      */
     public function newAction(Request $request)
     {
-       	$project = new Project(); 
-    	$form = $this->getForm($project); 
+       	$project = new Project();
+        $form = $this->createForm(ProjectType::class, $project);
+        $form->handleRequest($request);
 
-    	$form->handleRequest($request); 
-    	
-    	if ($form->isSubmitted()) {
-    		$project = $form->getData(); 
-    		$project->setName($project->getName());
-    		$project->setDescription($project->getDescription());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($project);
+            $em->flush();
 
-    		$entityManager = $this->getDoctrine()->getManager();
-    		$entityManager->persist($project);
-    		$entityManager->flush();
-    	}
+            return $this->redirectToRoute('project_index');
+        }
 
         return $this->render('project/new.html.twig', [
-            'controller_name' => 'Nouveau projet',
+            'project' => $project,
             'form' => $form->createView(),
         ]);
     }
-
-    private function getForm(project $project){
-        $em = $this->getDoctrine()->getManager(); 
-        $users = $em->getRepository(User::class)->findAll(); 
-        dump($users);
-
-        $listUsers = array();
-        foreach ($users as $user) {
-            $listUsers[$user->username] = $user->id ;
-        }
-            dump($listUsers);
-
-        $form = $this->createFormBuilder($project, array(
-            'action' =>$this->generateUrl('project_list'),
-            'method' => 'POST',
-        ));
-
-        $form->add("name", TextType::class)
-            ->add("description", TextareaType::class)
-            /*->add('user_id', ChoiceType::class, 
-                array(
-                    'choices' => $listUsers
-            ))*/
-            ->add('submit', SubmitType::class, array('label' => 'Ajouter'));
-        return $form->getForm();
-    }
-
-     /**
-     * @Route("/project/list", name="project_list")
-     */
-    public function listAction(Request $request)
-    {
-    	$project = new Project(); 
-    	$form = $this->getForm($project); 
-
-    	$form->handleRequest($request); 
-    	
-    	if ($form->isSubmitted()) {
-    		$project = $form->getData(); 
-    		$project->setName($project->getName());
-    		$project->setDescription($project->getDescription());
-
-    		$entityManager = $this->getDoctrine()->getManager();
-    		$entityManager->persist($project);
-    		$entityManager->flush();
-    	}
-
-    	$em = $this->getDoctrine()->getManager(); 
-
-	    $projects = $em->getRepository(Project::class)->findAll(); 
-	    // dump($projects); 
-
-
-    	return $this->render('project/index.html.twig', [
-            'controller_name' => 'Liste des projets',
-            'projects' => $projects,
-        ]);
-    } 
 
     /**
      * @Route("/project/show/{id}", name="project_show")
@@ -132,9 +73,9 @@ class ProjectController extends Controller
     /**
      * @Route("/project/edit/{id}", name="project_edit", methods="GET|POST")
      */
-    public function edit(Request $request, User $project): Response
+    public function edit(Request $request, Project $project): Response
     {
-        $form = $this->createForm(Project::class, $project);
+        $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -27,7 +27,8 @@ class DashboardController extends Controller
 
 	    $nbTask = $em->getRepository(Task::class)->nbTask();
 	    $nbProject = $em->getRepository(Project::class)->nbProject();
-	    
+	   
+
 	    $token = $this->get('security.token_storage')->getToken();
 		$user = $token->getUser();
         return $this->render('dashboard/index.html.twig', [
@@ -35,6 +36,7 @@ class DashboardController extends Controller
             'user' => $user,
             'task' => $nbTask,
             'project' => $nbProject,
+            'tasks' => $taskRepository->findAll(),
         ]);
     }
 }

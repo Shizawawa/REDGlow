@@ -3,9 +3,7 @@
 {% block title %}Edit Client{% endblock %}
 
 {% block body %}
-    <div id="main-wrapper">
-    <!-- Page wrapper  -->
-    <div class="page-wrapper">
+   
     <!-- Bread crumb -->
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
@@ -19,8 +17,6 @@
         </div>
     </div>
     <!-- End Bread crumb -->
-    <!-- Container fluid  -->
-    <div class="container-fluid">
     <!-- Start Page Content -->
 
     {{ include('client/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
@@ -28,7 +24,5 @@
     <p><a href="{{ path('client_index') }}"><- Retour à la liste des clients</a></p>
 
     </div>
-    </div>
-    </div>
-    </div>
+ 
 {% endblock %}

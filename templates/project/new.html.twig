@@ -17,12 +17,10 @@
         </div>
     </div>
     <!-- End Bread crumb -->
-        <!-- Start Page Content -->
+    <!-- Start Page Content -->
+    {{ include('project/_form.html.twig') }}
+    <br>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-
-	{{ form_end(form) }}
-
-    <a href="{{ path('project_list') }}">Retour à la liste</a>
+    <a href="{{ path('project_index') }}">Retour à la liste des projets</a>
+    
 {% endblock %}
