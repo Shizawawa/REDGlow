@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block body %}
+    <div id="main-wrapper">
+    <!-- Page wrapper  -->
+    <div class="page-wrapper">
+    <!-- Bread crumb -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-primary">Client : {{ client.name }} </h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </div>
+    </div>
+    <!-- End Bread crumb -->
+    <!-- Container fluid  -->
+    <div class="container-fluid">
+    <!-- Start Page Content -->
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ client.name }}</td>
+            </tr>
+            <tr>
+                <th>Logo</th>
+                <td>{{ client.logo }}</td>
+            </tr>
+        </tbody>
+    </table>
+        <p>
+            <a class="btn btn-warning" href="{{ path('client_edit', {'id': client.id}) }}">Modifier</a>
+            {{ include('client/_delete_form.html.twig') }}
+        </p>
+    <a href="{{ path('client_index') }}"><- Retour à la liste des clients</a>
+
+
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

@@ -3,80 +3,91 @@
 namespace App\Controller;
 
 use App\Entity\Task;
-//use Doctrine\DBAL\Types\DateType;
-use function PHPSTORM_META\type;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Form\TaskType;
+use App\Repository\TaskRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/task")
+ */
 class TaskController extends Controller
 {
     /**
-     * @Route("/task", name="task")
+     * @Route("/", name="task_index", methods="GET")
      */
-    public function index()
+    public function index(TaskRepository $taskRepository): Response
     {
-    	$em = $this->getDoctrine()->getManager();
-    	$task = $em->getRepository(Task::class)->findAll();
-    	dump($task);
-    	//$task = $em->getRepository(Task::class)->findBy($array('name' => 'monName'));
         return $this->render('task/index.html.twig', [
-            'controller_name' => 'Mes tâches',
-            'task_list' => $task,
+            'tasks' => $taskRepository->findAll(),
+            'controller_name' => 'Liste des tâches',
         ]);
     }
 
     /**
-     * @Route("/task/{id}", name="task_show")
+     * @Route("/new", name="task_new", methods="GET|POST")
      */
-    public function showAction(Task $task)
-    {
-        return $this->render('task/show.html.twig', [
-            'controller_name' => 'Mes tâches',
-            'task' => $task,
-        ]);
-    }
-
-    /**
-     * @Route("/task/new", name="task_new")
-     */
-    public function new(Request $request)
+    public function new(Request $request): Response
     {
         $task = new Task();
-
-        $form = $this->createFormBuilder($task)
-            ->add('name', TextType::class)
-            ->add('description', Textype::class)
-            //->add('start_at', DateType::class)
-            //->add('planned_end_at', DateType::class)
-            ->add('save', SubmitType::class, array('label' => 'Créer une Tâche'))
-            ->getForm();
-
+        $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
-        //if ($form->isSubmitted() && $form->isValid()) {
-        if ($form->isSubmitted()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $task = $form->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
 
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($task);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('task');
+            return $this->redirectToRoute('task_index');
         }
 
         return $this->render('task/new.html.twig', [
-            'controller_name' => 'Mes tâches',
+            'task' => $task,
             'form' => $form->createView(),
         ]);
     }
 
+    /**
+     * @Route("/{id}", name="task_show", methods="GET")
+     */
+    public function show(Task $task): Response
+    {
+        return $this->render('task/show.html.twig', ['task' => $task]);
+    }
 
+    /**
+     * @Route("/{id}/edit", name="task_edit", methods="GET|POST")
+     */
+    public function edit(Request $request, Task $task): Response
+    {
+        $form = $this->createForm(TaskType::class, $task);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('task_edit', ['id' => $task->getId()]);
+        }
+
+        return $this->render('task/edit.html.twig', [
+            'task' => $task,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="task_delete", methods="DELETE")
+     */
+    public function delete(Request $request, Task $task): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($task);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('task_index');
+    }
 }

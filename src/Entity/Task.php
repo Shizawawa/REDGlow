@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,7 +24,7 @@ class Task
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=160)
+     * @ORM\Column(type="text")
      */
     private $description;
 
@@ -40,6 +42,16 @@ class Task
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $end_at;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="tasks")
+     */
+    private $contributor;
+
+    public function __construct()
+    {
+        $this->contributor = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -102,6 +114,32 @@ class Task
     public function setEndAt(?\DateTimeInterface $end_at): self
     {
         $this->end_at = $end_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getContributor(): Collection
+    {
+        return $this->contributor;
+    }
+
+    public function addContributor(User $contributor): self
+    {
+        if (!$this->contributor->contains($contributor)) {
+            $this->contributor[] = $contributor;
+        }
+
+        return $this;
+    }
+
+    public function removeContributor(User $contributor): self
+    {
+        if ($this->contributor->contains($contributor)) {
+            $this->contributor->removeElement($contributor);
+        }
 
         return $this;
     }

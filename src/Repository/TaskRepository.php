@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Task;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -47,4 +48,12 @@ class TaskRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function nbTask()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
