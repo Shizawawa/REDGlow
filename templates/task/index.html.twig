@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ controller_name }} | Red Glow{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+        <h2>Liste des tâches</h2>
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Début de la tâche</th>
+                    <th>Fin prévue</th>
+                    <th>Fin réelle</th>
+                    <th></th>
+                    <th>Actions</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.name }}</td>
+                    <td>{{ task.startAt ? task.startAt|date('Y-m-d') : '' }}</td>
+                    <td>{{ task.plannedEndAt ? task.plannedEndAt|date('Y-m-d') : '' }}</td>
+                    <td>{{ task.endAt ? task.endAt|date('Y-m-d') : '' }}</td>
+                    <td><a class="btn btn-info" href="{{ path('task_show', {'id': task.id}) }}">Détails</a></td>
+                    <td><a class="btn btn-warning" href="{{ path('task_edit', {'id': task.id}) }}">Modifier</a></td>
+                    <td>{{ include('task/_delete_form.html.twig') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <div class="col-12">
+            <a class="btn btn-success" href="{{ path('task_new') }}">Ajouter une nouvelle tâche</a>
+        </div>
+   
+{% endblock %}
