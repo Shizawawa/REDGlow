@@ -88,81 +88,38 @@
         </div>
         <!-- /# column -->
         <div class="col-lg-6">
-            <div class="card">
+             <div class="card">
                 <div class="card-title">
-                    <h4>Visitor in Device</h4>
+                    <h4>Tâches à effectuer</h4>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover ">
-                            <thead>
-                                <tr>
-                                    <th>Device</th>
-                                    <th>Visits</th>
-                                    <th>Avg. time</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Unknown</td>
-                                    <td>2,456</td>
-                                    <td>00:02:36</td>
-                                </tr>
-                                <tr>
-                                    <td>Apple iPad</td>
-                                    <td>1,006</td>
-                                    <td>00:03:41</td>
-                                </tr>
-                                <tr>
-                                    <td>Apple iPhone</td>
-                                    <td>68</td>
-                                    <td>00:04:10</td>
-                                </tr>
-                                <tr>
-                                    <td>HTC Desire</td>
-                                    <td>38</td>
-                                    <td>00:01:40</td>
-                                </tr>
-                                <tr>
-                                    <td>Samsung</td>
-                                    <td>20</td>
-                                    <td>00:04:54</td>
-                                </tr>
-                                <tr>
-                                    <td>Apple iPad</td>
-                                    <td>1,006</td>
-                                    <td>00:03:41</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="todo-list">
+                    <div class="tdl-holder">
+                        <div class="tdl-content">
+
+
+                            <ul>
+                                {% if tasks %}
+                                    {% for task in tasks %}
+                                        <li class="color-primary">
+                                            <label>
+                                                <input type="checkbox"><i class="bg-primary"></i><span> {{ task.name }}</span>
+                                                <a href='#' class="ti-close"></a>
+                                            </label>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    Aucune tâche enregistrée ! 
+                                {% endif %}
+                               
+                            </ul>
+                        </div>
+                        <input type="text" class="tdl-new form-control" placeholder="Type here">
                     </div>
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card nestable-cart">
-                <div class="card-title">
-                    <h4>World Map</h4>
-
-                </div>
-                <div class="datamap">
-                    <div id="world-datamap"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-block">
-                    <h4 class="card-title">Visitor</h4>
-                    <div class="ct-svg-chart" style="height:420px"></div>
-                </div>
-            </div>
-        </div>
-        <!-- /# column -->
-    </div>
-    <!-- /# row -->
+    
 
     <div class="row">
 
@@ -342,44 +299,7 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>Todo</h4>
-                </div>
-                <div class="todo-list">
-                    <div class="tdl-holder">
-                        <div class="tdl-content">
-                            <ul>
-                                <li class="color-primary">
-                                    <label>
-                                        <input type="checkbox"><i class="bg-primary"></i><span>Post three to six times on Twitter.</span>
-                                        <a href='#' class="ti-close"></a>
-                                    </label>
-                                </li>
-                                <li class="color-success">
-                                    <label>
-                                        <input type="checkbox" checked><i class="bg-success"></i><span>Post one to two times on Facebook.</span>
-                                        <a href='#' class="ti-close"></a>
-                                    </label>
-                                </li>
-                                <li class="color-warning">
-                                    <label>
-                                        <input type="checkbox" checked><i class="bg-warning"></i><span>Follow back those who follow you</span>
-                                        <a href='#' class="ti-close"></a>
-                                    </label>
-                                </li>
-                                <li class="color-danger">
-                                    <label>
-                                        <input type="checkbox" checked><i class="bg-danger"></i><span>Connect with one new person</span>
-                                        <a href='#' class="ti-close"></a>
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
-                        <input type="text" class="tdl-new form-control" placeholder="Type here">
-                    </div>
-                </div>
-            </div>
+           
         </div>
 
     </div>

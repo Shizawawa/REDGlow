@@ -25,10 +25,11 @@ class DashboardController extends Controller
 
 	    $em = $this->getDoctrine()->getManager();
 
-	    $nbTask = $em->getRepository(Task::class)->nbTask();
+        $nbTask = $em->getRepository(Task::class)->nbTask();
+	    $tasks = $em->getRepository(Task::class)->findAll();
 	    $nbProject = $em->getRepository(Project::class)->nbProject();
 	   
-
+        dump($tasks);
 	    $token = $this->get('security.token_storage')->getToken();
 		$user = $token->getUser();
         return $this->render('dashboard/index.html.twig', [
@@ -36,7 +37,7 @@ class DashboardController extends Controller
             'user' => $user,
             'task' => $nbTask,
             'project' => $nbProject,
-            // 'tasks' => $taskRepository->findAll(),
+            'tasks' => $tasks,
         ]);
     }
 }
