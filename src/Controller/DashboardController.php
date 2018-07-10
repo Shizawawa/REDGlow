@@ -36,7 +36,7 @@ class DashboardController extends Controller
             'user' => $user,
             'task' => $nbTask,
             'project' => $nbProject,
-            'tasks' => $taskRepository->findAll(),
+            // 'tasks' => $taskRepository->findAll(),
         ]);
     }
 }
