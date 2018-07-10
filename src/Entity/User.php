@@ -22,7 +22,7 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=160, unique=true)
@@ -35,7 +35,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=160, unique=true)
      * @Assert\NotBlank()
      */
-    private $username;
+    public $username;
 
     /**
      * @Assert\NotBlank()
@@ -57,13 +57,19 @@ class User implements UserInterface
     private $roles;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Task", mappedBy="contributor")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="user_id")
      */
-    private $tasks;
+    private $yes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="user_id")
+     */
+    private $project_id;
 
     public function __construct() {
         $this->roles = array('ROLE_USER');
-        $this->tasks = new ArrayCollection();
+        $this->yes = new ArrayCollection();
+        $this->project_id = new ArrayCollection();
     }
 
     // other properties and methods
@@ -103,10 +109,6 @@ class User implements UserInterface
         return $this->password;
     }
 
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
 
     public function getSalt()
     {
@@ -125,29 +127,124 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Task[]
+     * @return Collection|Project[]
      */
-    public function getTasks(): Collection
+    public function getYes(): Collection
     {
-        return $this->tasks;
+        return $this->yes;
     }
 
-    public function addTask(Task $task): self
+    public function addYe(Project $ye): self
     {
-        if (!$this->tasks->contains($task)) {
-            $this->tasks[] = $task;
-            $task->addContributor($this);
+        if (!$this->yes->contains($ye)) {
+            $this->yes[] = $ye;
+            $ye->addUserId($this);
         }
 
         return $this;
     }
 
-    public function removeTask(Task $task): self
+    public function removeYe(Project $ye): self
     {
-        if ($this->tasks->contains($task)) {
-            $this->tasks->removeElement($task);
-            $task->removeContributor($this);
+        if ($this->yes->contains($ye)) {
+            $this->yes->removeElement($ye);
+            $ye->removeUserId($this);
         }
+
+        return $this;
+    }
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjectId(): Collection
+    {
+        return $this->project_id;
+    }
+
+    public function addProjectId(Project $projectId): self
+    {
+        if (!$this->project_id->contains($projectId)) {
+            $this->project_id[] = $projectId;
+            $projectId->addUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectId(Project $projectId): self
+    {
+        if ($this->project_id->contains($projectId)) {
+            $this->project_id->removeElement($projectId);
+            $projectId->removeUserId($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $password
+     *
+     * @return self
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $roles
+     *
+     * @return self
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $yes
+     *
+     * @return self
+     */
+    public function setYes($yes)
+    {
+        $this->yes = $yes;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $project_id
+     *
+     * @return self
+     */
+    public function setProjectId($project_id)
+    {
+        $this->project_id = $project_id;
 
         return $this;
     }
