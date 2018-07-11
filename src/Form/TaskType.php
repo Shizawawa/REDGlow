@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Project;
 use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -23,14 +24,20 @@ class TaskType extends AbstractType
             ->add('planned_end_at', DateType::class, array('label'=>'Fin prévue'))
             ->add('end_at', DateType::class, array('label'=>'Fin réelle'))
             ->add('contributor', EntityType::class, array(
-                'placeholder' => 'Choose an option',
+                'placeholder' => 'Choisir un contributeur',
                 'multiple' => true,
                 'expanded' => true,
                 'class' => User::class,
                 'choice_label' => function ($user) {
                     return $user->getUsername();
                 }
-            ));
+            ))
+            ->add('project', EntityType::class,array(
+                'class' => Project::class,
+                'choice_label' => function ($project) {
+                    return $project->getName();
+                }
+            ))
         ;
     }
 

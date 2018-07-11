@@ -22,7 +22,7 @@ class ProjectType extends AbstractType
 
             ->add('name', TextType::class, array('label'=>'Nom du projet'))
             ->add('description', TextareaType::class, array('attr'=>array('row'=>10)))
-            ->add('user_id', EntityType::class, array(
+            ->add('users', EntityType::class, array(
                 'placeholder' => 'Choix des participants',
                 'multiple' => true,
                 'expanded' => true,

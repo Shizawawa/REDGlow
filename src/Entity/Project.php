@@ -29,14 +29,26 @@ class Project
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="project_id")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="projects")
      */
-    private $user_id;
+    private $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Task", mappedBy="project")
+     */
+    private $tasks;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="owned_projects")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
 
 
     public function __construct()
     {
-        $this->user_id = new ArrayCollection();
+        $this->users = new ArrayCollection();
+        $this->tasks = new ArrayCollection();
     }
 
     public function getId()
@@ -71,25 +83,68 @@ class Project
     /**
      * @return Collection|User[]
      */
-    public function getUserId(): Collection
+    public function getUsers(): Collection
     {
-        return $this->user_id;
+        return $this->users;
     }
 
-    public function addUserId(User $userId): self
+    public function addUsers(User $users): self
     {
-        if (!$this->user_id->contains($userId)) {
-            $this->user_id[] = $userId;
+        if (!$this->users->contains($users)) {
+            $this->users[] = $users;
         }
 
         return $this;
     }
 
-    public function removeUserId(User $userId): self
+    public function removeUsers(User $users): self
     {
-        if ($this->user_id->contains($userId)) {
-            $this->user_id->removeElement($userId);
+        if ($this->users->contains($users)) {
+            $this->users->removeElement($users);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Task[]
+     */
+    public function getTasks(): Collection
+    {
+        return $this->tasks;
+    }
+
+    public function addTask(Task $task): self
+    {
+        if (!$this->tasks->contains($task)) {
+            $this->tasks[] = $task;
+            $task->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTask(Task $task): self
+    {
+        if ($this->tasks->contains($task)) {
+            $this->tasks->removeElement($task);
+            // set the owning side to null (unless already changed)
+            if ($task->getProject() === $this) {
+                $task->setProject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

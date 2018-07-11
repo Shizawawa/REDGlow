@@ -48,6 +48,11 @@ class Task
      */
     private $contributor;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="tasks")
+     */
+    private $project;
+
     public function __construct()
     {
         $this->contributor = new ArrayCollection();
@@ -140,6 +145,18 @@ class Task
         if ($this->contributor->contains($contributor)) {
             $this->contributor->removeElement($contributor);
         }
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): self
+    {
+        $this->project = $project;
 
         return $this;
     }

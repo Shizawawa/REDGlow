@@ -62,20 +62,26 @@ class User implements UserInterface
     private $yes;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="user_id")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Project", mappedBy="users")
      */
-    private $project_id;
+    private $projects;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Module", inversedBy="yes")
      */
     private $module;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Project", mappedBy="author")
+     */
+    private $owned_projects;
+
     public function __construct() {
         $this->roles = array('ROLE_USER');
         $this->yes = new ArrayCollection();
         $this->project_id = new ArrayCollection();
         $this->module = new ArrayCollection();
+        $this->owned_projects = new ArrayCollection();
     }
 
     // other properties and methods
@@ -162,26 +168,26 @@ class User implements UserInterface
     /**
      * @return Collection|Project[]
      */
-    public function getProjectId(): Collection
+    public function getProjects(): Collection
     {
-        return $this->project_id;
+        return $this->projects;
     }
 
-    public function addProjectId(Project $projectId): self
+    public function addProjects(Project $projects): self
     {
-        if (!$this->project_id->contains($projectId)) {
-            $this->project_id[] = $projectId;
-            $projectId->addUserId($this);
+        if (!$this->projects->contains($projects)) {
+            $this->projects[] = $projects;
+            $projects->addUserId($this);
         }
 
         return $this;
     }
 
-    public function removeProjectId(Project $projectId): self
+    public function removeProjects(Project $projects): self
     {
-        if ($this->project_id->contains($projectId)) {
-            $this->project_id->removeElement($projectId);
-            $projectId->removeUserId($this);
+        if ($this->projects->contains($projects)) {
+            $this->projects->removeElement($projects);
+            $projects->removeUserId($this);
         }
 
         return $this;
@@ -248,9 +254,9 @@ class User implements UserInterface
      *
      * @return self
      */
-    public function setProjectId($project_id)
+    public function setProjects($projects)
     {
-        $this->project_id = $project_id;
+        $this->projects = $projects;
 
         return $this;
     }
@@ -276,6 +282,37 @@ class User implements UserInterface
     {
         if ($this->module->contains($module)) {
             $this->module->removeElement($module);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getOwnedProjects(): Collection
+    {
+        return $this->owned_projects;
+    }
+
+    public function addOwnedProject(Project $ownedProject): self
+    {
+        if (!$this->owned_projects->contains($ownedProject)) {
+            $this->owned_projects[] = $ownedProject;
+            $ownedProject->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwnedProject(Project $ownedProject): self
+    {
+        if ($this->owned_projects->contains($ownedProject)) {
+            $this->owned_projects->removeElement($ownedProject);
+            // set the owning side to null (unless already changed)
+            if ($ownedProject->getAuthor() === $this) {
+                $ownedProject->setAuthor(null);
+            }
         }
 
         return $this;
