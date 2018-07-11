@@ -7,11 +7,10 @@
 	.example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
 	.example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 	</style>
-
-		
 	<table id="projects" class="table table-hover ">
 		<thead>
 			<tr>
+				<th></th>
 				<th>Intitulé</th>
 				<th>Description</th>
 				<th></th>
@@ -22,16 +21,14 @@
 		<tbody>
 			{% for project in projects %}
 				<tr>
+					<td><div class="label" style="background-color:{{ project.state.color }}">{{ project.state.title }}</div></td>
 					<td>{{ project.name }}</td>
 					<td>{{ project.description }}</td>
 					<td><a href="{{ path('project_show', {'id': project.id}) }}" target="=_blank" class="btn btn-info">Plus de détails</a></td>
-		            <td><a href="{{ path('project_edit', {'id': project.id}) }}" class="btn btn-warning">Modifer</a></td>
+		            <td><a href="{{ path('project_edit', {'id': project.id}) }}" class="btn btn-warning">Modifier</a></td>
 					<td>{{ include('project/_delete_form.html.twig') }}</td>
 				</tr>
-			
 			{% endfor %}
-			
-
 		</tbody>
 	</table>
 {% endblock %}

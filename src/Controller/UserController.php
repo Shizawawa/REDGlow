@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\User1Type;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +19,11 @@ class UserController extends Controller
     /**
      * @Route("/", name="user_index", methods="GET")
      */
-    public function index(): Response
+    public function index(UserRepository $userRepository): Response
     {
-        $users = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->findAll();
-
-        return $this->render('user/index.html.twig', ['users' => $users,
-            'controller_name' => 'Utilisateurs',
+        return $this->render('user/index.html.twig', [
+            'users' => $userRepository->findAll(),
+            'controller_name' => 'Liste des utilisateurs',
         ]);
     }
 
@@ -55,27 +53,13 @@ class UserController extends Controller
     /**
      * @Route("/{id}", name="user_show", methods="GET")
      */
-    /*public function show(User $user): Response
+    public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', ['user' => $user]);
-    }*/
-
-    /**
-     * @Route("/show/{id}", name="user_show")
-     */
-    public function show($id)
-    {
-        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-
-        return $this->render('user/show.html.twig', 
-            array('user' => $user, ));
-
     }
 
-
-
     /**
-     * @Route("/edit/{id}", name="user_edit", methods="GET|POST")
+     * @Route("/{id}/edit", name="user_edit", methods="GET|POST")
      */
     public function edit(Request $request, User $user): Response
     {
@@ -94,19 +78,17 @@ class UserController extends Controller
         ]);
     }
 
-    
     /**
-     * @Route("/delete/{id}")
-     * @Method({"DELETE"})
+     * @Route("/{id}", name="user_delete", methods="DELETE")
      */
-    public function delete(Request $request, $id) 
+    public function delete(Request $request, User $user): Response
     {
-      $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-      $entityManager = $this->getDoctrine()->getManager();
-      $entityManager->remove($user);
-      $entityManager->flush();
-      $response = new Response();
-      $response->send();
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($user);
+            $em->flush();
+        }
 
+        return $this->redirectToRoute('user_index');
     }
 }

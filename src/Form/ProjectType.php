@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Project;
+use App\Entity\State;
 use App\Entity\User;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -29,6 +30,12 @@ class ProjectType extends AbstractType
                 'class' => User::class,
                 'choice_label' => function ($user) {
                     return $user->getUsername();
+                }
+            ))
+            ->add('state', EntityType::class,array(
+                'class' => State::class,
+                'choice_label' => function ($state) {
+                    return $state->getTitle();
                 }
             ));
         ;

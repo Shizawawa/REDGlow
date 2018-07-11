@@ -7,6 +7,7 @@
     <div id="delete-project">
         {% if project %}
             <h1>{{ project.name }}</h1>
+            <div class="label" style="background-color:{{ project.state.color }}">{{ project.state.title }}</div>
             <table class="table">
                 <tbody>
                     <tr>

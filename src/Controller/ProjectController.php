@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\StateChangeType;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -63,15 +64,22 @@ class ProjectController extends Controller
     }
 
     /**
-     * @Route("/project/show/{id}", name="project_show")
+     * @Route("/project/show/{id}", name="project_show", methods="GET|POST")
      */
-    public function show($id)
+    public function show(Request $request, Project $project): Response
     {
-    	$project = $this->getDoctrine()->getRepository(Project::class)->find($id);
+        $form = $this->createForm(StateChangeType::class, $project);
+        $form->handleRequest($request);
 
-        return $this->render('project/show.html.twig', 
-            array('project' => $project, ));
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
 
+            return $this->redirectToRoute('project_show', ['id' => $project->getId()]);
+        }
+        return $this->render('project/show.html.twig', [
+            'project' => $project,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**

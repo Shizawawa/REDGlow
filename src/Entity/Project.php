@@ -44,6 +44,12 @@ class Project
      */
     private $author;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\State", inversedBy="projects")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $state;
+
 
     public function __construct()
     {
@@ -145,6 +151,18 @@ class Project
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getState(): ?State
+    {
+        return $this->state;
+    }
+
+    public function setState(?State $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

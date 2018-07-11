@@ -1,6 +1,4 @@
 <?php
-
-// src/Entity/User.php
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -38,7 +36,6 @@ class User implements UserInterface
     public $username;
 
     /**
-     * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
     private $plainPassword;
@@ -79,7 +76,7 @@ class User implements UserInterface
     public function __construct() {
         $this->roles = array('ROLE_USER');
         $this->yes = new ArrayCollection();
-        $this->project_id = new ArrayCollection();
+        $this->projects = new ArrayCollection();
         $this->module = new ArrayCollection();
         $this->owned_projects = new ArrayCollection();
     }
@@ -150,7 +147,7 @@ class User implements UserInterface
     {
         if (!$this->yes->contains($ye)) {
             $this->yes[] = $ye;
-            $ye->addUserId($this);
+            $ye->addUsers($this);
         }
 
         return $this;
@@ -160,7 +157,7 @@ class User implements UserInterface
     {
         if ($this->yes->contains($ye)) {
             $this->yes->removeElement($ye);
-            $ye->removeUserId($this);
+            $ye->removeUsers($this);
         }
 
         return $this;
@@ -177,7 +174,7 @@ class User implements UserInterface
     {
         if (!$this->projects->contains($projects)) {
             $this->projects[] = $projects;
-            $projects->addUserId($this);
+            $projects->addUsers($this);
         }
 
         return $this;
@@ -187,7 +184,7 @@ class User implements UserInterface
     {
         if ($this->projects->contains($projects)) {
             $this->projects->removeElement($projects);
-            $projects->removeUserId($this);
+            $projects->removeUsers($this);
         }
 
         return $this;

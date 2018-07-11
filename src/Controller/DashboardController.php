@@ -19,7 +19,7 @@ class DashboardController extends Controller
     public function index()
     {
 		$securityContext = $this->container->get('security.authorization_checker');
-		if (false === $securityContext->isGranted('ROLE_USER')) {
+		if ((false === $securityContext->isGranted('ROLE_USER')) && (false === $securityContext->isGranted('ROLE_ADMIN'))) {
 	        throw new AccessDeniedException('Unable to access this page!');
 	    }
 

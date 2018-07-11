@@ -30,7 +30,7 @@
                     <td>{{ task.startAt ? task.startAt|date('Y-m-d') : '' }}</td>
                     <td>{{ task.plannedEndAt ? task.plannedEndAt|date('Y-m-d') : '' }}</td>
                     <td>{{ task.endAt ? task.endAt|date('Y-m-d') : '' }}</td>
-                    <td><a class="btn btn-info" href="{{ path('task_show', {'id': task.id}) }}">Détails</a></td>
+                    <td><a class="btn btn-info" href="{{ path('task_show', {'id': task.id}) }}">Plus de détails</a></td>
                     <td><a class="btn btn-warning" href="{{ path('task_edit', {'id': task.id}) }}">Modifier</a></td>
                     <td>{{ include('task/_delete_form.html.twig') }}</td>
                 </tr>
