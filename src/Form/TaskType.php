@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Project;
+use App\Entity\State;
 use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -36,6 +37,12 @@ class TaskType extends AbstractType
                 'class' => Project::class,
                 'choice_label' => function ($project) {
                     return $project->getName();
+                }
+            ))
+            ->add('state', EntityType::class,array(
+                'class' => State::class,
+                'choice_label' => function ($state) {
+                    return $state->getTitle();
                 }
             ))
         ;

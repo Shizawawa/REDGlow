@@ -3,25 +3,17 @@
 {% block title %}Task{% endblock %}
 
 {% block body %}
-   
-    <!-- Bread crumb -->
-    <div class="row page-titles">
-        <div class="col-md-5 align-self-center">
-            <h3 class="text-primary">Tâche : {{ task.name }} </h3>
-        </div>
-        <div class="col-md-7 align-self-center">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-        </div>
-    </div>
-    <!-- End Bread crumb -->
    <!-- Start Page Content -->
-
+    {% if task %}
+        <h1>Tâche : {{ task.name }}</h1>
+        <div class="label" style="background-color:{{ task.state.color }}">{{ task.state.title }}</div>
         <div class="col-12">
             Projet :
             <p>{{ task.project ?  task.project.name : '∅'}}</p>
+        </div>
+        <div class="col-12">
+            Auteur :
+            <p>{{ task.author.username }}</p>
         </div>
         <div class="col-12">
             Description :
@@ -54,6 +46,9 @@
         {{ include('task/_delete_form.html.twig') }}</p>
 
         <a href="{{ path('task_index') }}"><- Retour à la liste des tâches</a>
+    {% else %}
+        <p>Cette tâche n'existe plus !</p>
+    {% endif %}
     </div>
       
 {% endblock %}

@@ -12,6 +12,7 @@
         <table class="table table-hover ">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Projet</th>
                     <th>Nom</th>
                     <th>Début de la tâche</th>
@@ -25,6 +26,7 @@
             <tbody>
             {% for task in tasks %}
                 <tr>
+                    <td><div class="label" style="background-color:{{ task.state.color }}">{{ task.state.title }}</div></td>
                     <td>{{ task.project ?  task.project.name}}</td>
                     <td>{{ task.name }}</td>
                     <td>{{ task.startAt ? task.startAt|date('Y-m-d') : '' }}</td>

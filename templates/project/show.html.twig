@@ -4,7 +4,7 @@
 
 {% block body %}
     
-    <div id="delete-project">
+    <div id="projects">
         {% if project %}
             <h1>{{ project.name }}</h1>
             <div class="label" style="background-color:{{ project.state.color }}">{{ project.state.title }}</div>
@@ -39,7 +39,10 @@
             <div class="col-12">
                 Tâche(s) du projet :
                 {% for task in project.tasks %}
-                    <p>{{ task.name }}</p>
+                    <p>
+                        <a href="{{ path('task_show', {'id': task.id}) }}" target="=_blank">{{ task.name }}</a>
+                        <span class="label" style="background-color:{{ task.state.color }}">{{ task.state.title }}</span>
+                    </p>
                 {% else %}
 
                         <p>Il n'a y aucune tâche pour ce projet</p>

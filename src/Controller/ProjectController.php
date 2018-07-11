@@ -43,7 +43,6 @@ class ProjectController extends Controller
        	$project = new Project();
         $token = $this->get('security.token_storage')->getToken();
         $user = $token->getUser();
-        dump($user);
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
