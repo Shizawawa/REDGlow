@@ -14,6 +14,7 @@ class SecurityController extends Controller
     */
     public function index()
     {
+        
         return $this->render('security/index.html.twig', [
             'controller_name' => 'SecurityController',
         ]);

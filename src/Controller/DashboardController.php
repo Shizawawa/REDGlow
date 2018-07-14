@@ -29,9 +29,12 @@ class DashboardController extends Controller
 	    $tasks = $em->getRepository(Task::class)->findAll();
 	    $nbProject = $em->getRepository(Project::class)->nbProject();
 	   
-        dump($tasks);
+        // dump($tasks);
 	    $token = $this->get('security.token_storage')->getToken();
 		$user = $token->getUser();
+
+        dump($this->get('session')); 
+
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'Dashboard',
             'user' => $user,

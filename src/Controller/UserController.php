@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * @Route("/user")
@@ -20,9 +21,10 @@ class UserController extends Controller
      */
     public function index(): Response
     {
-        $users = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->findAll();
+
+      $users = $this->getDoctrine()
+          ->getRepository(User::class)
+          ->findAll();
 
         return $this->render('user/index.html.twig', ['users' => $users,
             'controller_name' => 'Utilisateurs',
