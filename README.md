@@ -20,11 +20,9 @@ And repeat
 until finished
 End with an example of getting some data out of the system or using it for a little demo
 
-## Deployment
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 Symfony - The web framework used
+
 Doctrine - Dependency Management
 
 ## Contributing
@@ -32,7 +30,9 @@ Please read CONTRIBUTING.md for details on our code of conduct, and the process 
 
 ## Authors
 Elodie Flores - Initial work
+
 Rachel Benyoucef - Initial work
+
 See also the list of contributors who participated in this project.
 
 ## License
