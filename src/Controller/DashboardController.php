@@ -19,21 +19,23 @@ class DashboardController extends Controller
     public function index()
     {
 		$securityContext = $this->container->get('security.authorization_checker');
-		if (false === $securityContext->isGranted('ROLE_USER')) {
+		if ((false === $securityContext->isGranted('ROLE_USER')) && (false === $securityContext->isGranted('ROLE_ADMIN'))) {
 	        throw new AccessDeniedException('Unable to access this page!');
 	    }
 
 	    $em = $this->getDoctrine()->getManager();
 
         $nbTask = $em->getRepository(Task::class)->nbTask();
-	    $tasks = $em->getRepository(Task::class)->findAll();
+        $tasks = $em->getRepository(Task::class)->findAll();
+	    $projects = $em->getRepository(Project::class)->findAll();
 	    $nbProject = $em->getRepository(Project::class)->nbProject();
 	   
         // dump($tasks);
+
 	    $token = $this->get('security.token_storage')->getToken();
 		$user = $token->getUser();
 
-        dump($this->get('session')); 
+        // dump($this->get('session')); 
 
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'Dashboard',
@@ -41,6 +43,7 @@ class DashboardController extends Controller
             'task' => $nbTask,
             'project' => $nbProject,
             'tasks' => $tasks,
+            'projects' => $projects,
         ]);
     }
 }

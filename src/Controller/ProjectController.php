@@ -41,11 +41,14 @@ class ProjectController extends Controller
     public function newAction(Request $request)
     {
        	$project = new Project();
+        $token = $this->get('security.token_storage')->getToken();
+        $user = $token->getUser();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $project->setAuthor($user);
             $em->persist($project);
             $em->flush();
 
@@ -61,13 +64,9 @@ class ProjectController extends Controller
     /**
      * @Route("/project/show/{id}", name="project_show")
      */
-    public function show($id)
+    public function show(Project $project): Response
     {
-    	$project = $this->getDoctrine()->getRepository(Project::class)->find($id);
-
-        return $this->render('project/show.html.twig', 
-            array('project' => $project, ));
-
+        return $this->render('project/show.html.twig', ['project' => $project]);
     }
 
     /**
@@ -91,16 +90,15 @@ class ProjectController extends Controller
     }
 
     /**
-     * @Route("/project/delete/{id}")
-     * @Method({"DELETE"})
+     * @Route("/{id}", name="project_delete", methods="DELETE")
      */
-    public function delete(Request $request, $id) 
+    public function delete(Request $request, Project $project): Response
     {
-      $project = $this->getDoctrine()->getRepository(Project::class)->find($id);
-      $entityManager = $this->getDoctrine()->getManager();
-      $entityManager->remove($project);
-      $entityManager->flush();
-      $response = new Response();
-      $response->send();
+        if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($project);
+            $em->flush();
+        }
+        return $this->redirectToRoute('project_index');
     }
 }

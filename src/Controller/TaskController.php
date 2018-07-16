@@ -32,11 +32,14 @@ class TaskController extends Controller
     public function new(Request $request): Response
     {
         $task = new Task();
+        $token = $this->get('security.token_storage')->getToken();
+        $user = $token->getUser();
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $task->setAuthor($user);
             $em->persist($task);
             $em->flush();
 

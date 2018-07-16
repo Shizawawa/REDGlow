@@ -4,17 +4,14 @@
 
 {% block body %}
     
-    <div id="delete-project">
+    <div id="projects">
         {% if project %}
             <h1>{{ project.name }}</h1>
+            <div class="label" style="background-color:{{ project.state.color }}">{{ project.state.title }}</div>
             <table class="table">
                 <tbody>
                     <tr>
-                        <th>Id</th>
-                        <td>{{ project.id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Name</th>
+                        <th>Nom du projet</th>
                         <td>{{ project.name }}</td>
                     </tr>
                     <tr>
@@ -22,18 +19,40 @@
                         <td>{{ project.description }}</td>
                     </tr>
                     <tr>
-                        <th>Users</th>
-                        <td>Rachel .. </td>
-                        {# <td>{{ project.users ? project.users|join(', ') : '' }}</td> #}
+                        <th>Auteur</th>
+                        <td>{{ project.author.username }}</td>
                     </tr>
                 </tbody>
             </table>
 
-            <a href="{{ path('project_index') }}">back to list</a>
+            <div class="col-12">
+                Membre(s) du projet :
+                {% for user in project.users %}
+                    <p>{{ user.username }}</p>
+                {% else %}
 
-            <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
+                    <p>Il n'a y aucun utilisateur membre de ce projet</p>
 
-            <a href="#" class="btn btn-danger delete-project" data-id= "{{ project.id }}">Supprimer</a>
+                {% endfor %}
+            </div>
+
+            <div class="col-12">
+                Tâche(s) du projet :
+                {% for task in project.tasks %}
+                    <p>
+                        <a href="{{ path('task_show', {'id': task.id}) }}" target="=_blank">{{ task.name }}</a>
+                        <span class="label" style="background-color:{{ task.state.color }}">{{ task.state.title }}</span>
+                    </p>
+                {% else %}
+
+                        <p>Il n'a y aucune tâche pour ce projet</p>
+
+                {% endfor %}
+            </div>
+
+            <a href="{{ path('project_index') }}"><- Retour à la liste</a>
+
+            <a href="{{ path('project_edit', {'id': project.id}) }}">Modifier</a>
         {% else %}
             <p>Ce projet n'existe plus !</p>
         {% endif %}

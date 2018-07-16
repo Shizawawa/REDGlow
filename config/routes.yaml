@@ -4,3 +4,5 @@
 # the "app_lucky_number" route name is not important yet
 logout:
     path: /logout
+index:
+    path: /dashboard
